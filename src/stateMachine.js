@@ -1,7 +1,7 @@
 
 import { Machine } from 'xstate';
 
-// example from the docs https://xstate.js.org/docs/packages/xstate-react/#api
+// visualise it: https://xstate.js.org/viz/
 export const stateMachine = Machine({
   id: 'login',
   initial: 'awaiting',
