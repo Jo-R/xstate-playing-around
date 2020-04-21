@@ -1,21 +1,24 @@
-
-import { Machine } from 'xstate';
+import { Machine } from "xstate";
 
 // visualise it: https://xstate.js.org/viz/
 export const stateMachine = Machine({
-  id: 'login',
-  initial: 'awaiting',
+  id: "login",
+  initial: "awaiting",
   states: {
     awaiting: {
-      on: { SENDEMAIL: 'loading' }
+      on: { SENDEMAIL: "loading" },
     },
     loading: {
-      on: { 
-        COMPLETE: 'done',
-        NOTFOUND: 'notFound'
-      }
+      on: {
+        EMAILFOUND: "password",
+        NOTFOUND: "notFound",
+        PASSWORDFOUND: "loggedIn",
+      },
     },
-    done: {type: 'final'},
-    notFound: {type: 'final'}
-  }
+    password: {
+      on: { CHECKPASSWORD: "loading" },
+    },
+    notFound: { type: "final" },
+    loggedIn: { type: "final" },
+  },
 });
