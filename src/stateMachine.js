@@ -6,19 +6,23 @@ export const stateMachine = Machine({
   initial: "awaiting",
   states: {
     awaiting: {
-      on: { SENDEMAIL: "loading" },
+      on: { CHECKEMAIL: "loading" },
     },
     loading: {
       on: {
         EMAILFOUND: "password",
-        NOTFOUND: "notFound",
+        EMAILNOTFOUND: "register",
         PASSWORDFOUND: "loggedIn",
+        PASSWORDNOTFOUND: "password",
+        REGISTERED: "loggedIn",
       },
     },
     password: {
       on: { CHECKPASSWORD: "loading" },
     },
-    notFound: { type: "final" },
+    register: {
+      on: { SUBMITREG: "loading" },
+    },
     loggedIn: { type: "final" },
   },
 });
