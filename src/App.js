@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "./App.css";
 import { Input } from "./components/Input";
 import { useMachine } from "@xstate/react";
 import { stateMachine } from "../src/stateMachine";
@@ -7,13 +6,13 @@ import { userData } from "./dummyUserData";
 import styled from "styled-components";
 
 // TODO
-// - sort the colours into theme
 // - input field style
-// - pull stuff out to components
+// - pull stuff out to components and add proptypes
 // - build the reg form
-// - fail messgae if password fails
+// - fail message if password fails
 // - loading spinner
-// - make the user check better (ie >1 user!)
+// - local storage for user deets
+// then actually do some more stuff with x-state which is the whole point of this!
 
 function App() {
   const [state, send] = useMachine(stateMachine);
@@ -107,7 +106,7 @@ const CenteredHeader = styled.div`
   place-items: center;
   padding-top: 3em;
   font-family: "Audiowide", cursive;
-  color: #c78b8d;
+  color: ${({ theme }) => theme.colors.contrast};
 `;
 
 const LoginContainer = styled.div`
@@ -115,7 +114,7 @@ const LoginContainer = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: #ac9fbb;
+  background-color: ${({ theme }) => theme.colors.light};
   padding: 5em;
   border-radius: 10px;
   color: #1d1e2c;
@@ -123,7 +122,7 @@ const LoginContainer = styled.div`
 `;
 
 const StyledButton = styled.button`
-  background-color: #c78b8d;
-  color: #2d2d34;
+  background-color: ${({ theme }) => theme.colors.contrast};
+  color: ${({ theme }) => theme.colors.black};
   padding: 3px 10px;
 `;
