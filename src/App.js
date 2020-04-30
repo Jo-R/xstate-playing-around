@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Input } from "./components/Input";
+import { InputWithButton } from "./components/molecules/InputWithButton";
 import { useMachine } from "@xstate/react";
 import { stateMachine } from "../src/stateMachine";
 import { userData } from "./dummyUserData";
@@ -7,10 +7,11 @@ import styled from "styled-components";
 
 // TODO
 // - input field style
-// - pull stuff out to components and add proptypes
-// - build the reg form
+// - pull stuff out to components
+// - add proptypes
+// - build the reg form component (molecule)
 // - fail message if password fails
-// - loading spinner
+// - loading spinner component
 // - local storage for user deets
 // then actually do some more stuff with x-state which is the whole point of this!
 
@@ -68,23 +69,27 @@ function App() {
         {state.value === "loading" && <p>Loading...</p>}
         {state.value === "awaiting" && (
           <>
-            <Input
-              id="email"
-              labelText="Enter your email: "
-              onChange={handleEmailInputChange}
+            <InputWithButton
+              inputId="email"
+              type="email"
+              inputLabel="Enter your email: "
+              inputOnChangeHandler={handleEmailInputChange}
+              buttonOnClickHandler={findEmailHandler}
+              buttonText={"Go"}
             />
-            <StyledButton onClick={findEmailHandler}>Go</StyledButton>
           </>
         )}
 
         {state.value === "password" && (
           <>
-            <Input
-              id="password"
-              labelText="Enter password: "
-              onChange={handlePasswordInputChange}
+            <InputWithButton
+              inputId="password"
+              type="password"
+              inputLabel="Enter password: "
+              inputOnChangeHandler={handlePasswordInputChange}
+              buttonOnClickHandler={checkPasswordHandler}
+              buttonText={"Enter"}
             />
-            <StyledButton onClick={checkPasswordHandler}>Enter</StyledButton>
           </>
         )}
         {state.value === "register" && (
@@ -114,15 +119,10 @@ const LoginContainer = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  width: 50%;
   background-color: ${({ theme }) => theme.colors.light};
   padding: 5em;
   border-radius: 10px;
   color: #1d1e2c;
   box-shadow: 20px 20px 60px #625375, -20px -20px 60px #84719f;
-`;
-
-const StyledButton = styled.button`
-  background-color: ${({ theme }) => theme.colors.contrast};
-  color: ${({ theme }) => theme.colors.black};
-  padding: 3px 10px;
 `;
