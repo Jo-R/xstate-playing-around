@@ -6,13 +6,14 @@ import styled from "styled-components";
 import { LoadingSpinner } from "./components/atoms/LoadingSpinner";
 
 // TODO
-// - pull stuff out to components
+// - pull stuff out to components/better organisation
 // - add proptypes
 // - build the reg form component (molecule)
 // - local storage for user deets
 // manage focus
-// guards?
+// guards? and other x-state stuff! the machine feels a bit wrong maybe...
 // also this is useful https://codesandbox.io/s/l3r07jkxx9?file=/src/machineConfig.js
+// tests
 
 function App() {
   const {currentState, 
@@ -33,7 +34,7 @@ function App() {
     setEmail(em);
   };
 
-  const findEmailHandler = () => {
+  const findEmailHandler = () => { // TODO create like an auth hook or something and move the email password checks to there
     checkEmail();
     setTimeout(() => {
       if (email === userData.users.email) {
