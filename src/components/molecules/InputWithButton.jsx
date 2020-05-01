@@ -26,7 +26,7 @@ const Container = styled.div`
 `;
 
 const StyledButton = styled(Button)`
-  width: 40%;
+  width: 20%;
   margin-top: 1.5rem;
   align-self: center;
 `;

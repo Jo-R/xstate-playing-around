@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { InputWithButton } from "./components/molecules/InputWithButton";
-import { useMachine } from "@xstate/react";
-import { stateMachine } from "../src/stateMachine";
+import {LoginContext} from "./loginContext";
 import { userData } from "./dummyUserData";
 import styled from "styled-components";
 
@@ -16,7 +15,17 @@ import styled from "styled-components";
 // then actually do some more stuff with x-state which is the whole point of this!
 
 function App() {
-  const [state, send] = useMachine(stateMachine);
+  const {currentState, 
+    checkEmail, 
+    emailFound, 
+    emailNotFound,
+    sendCheckPassword,
+    passwordFound,
+    passwordNotFound,
+    sendSubmitReg,
+    registerdOk} = useContext(LoginContext);
+
+  console.log(currentState.context.isLoggedIn);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -27,12 +36,12 @@ function App() {
   };
 
   const findEmailHandler = () => {
-    send("CHECKEMAIL");
+    checkEmail();
     setTimeout(() => {
       if (email === userData.users.email) {
-        send("EMAILFOUND");
+        emailFound();
       } else {
-        send("EMAILNOTFOUND");
+        emailNotFound();
       }
     }, 1000);
   };
@@ -43,20 +52,20 @@ function App() {
   };
 
   const checkPasswordHandler = () => {
-    send("CHECKPASSWORD");
+    sendCheckPassword();
     setTimeout(() => {
       if (password === userData.users.password) {
-        send("PASSWORDFOUND");
+        passwordFound();
       } else {
-        send("PASSWORDNOTFOUND");
+        passwordNotFound();
       }
     }, 1000);
   };
 
   const registerHandler = () => {
-    send("SUBMITREG");
+    sendSubmitReg();
     setTimeout(() => {
-      send("REGISTERED");
+      registerdOk();
     }, 1000);
   };
 
@@ -66,8 +75,8 @@ function App() {
         <h1>Logging in with x-state</h1>
       </CenteredHeader>
       <LoginContainer>
-        {state.value === "loading" && <p>Loading...</p>}
-        {state.value === "awaiting" && (
+        {currentState.value === "loading" && <p>Loading...</p>}
+        {currentState.value === "awaiting" && (
           <>
             <InputWithButton
               inputId="email"
@@ -80,7 +89,7 @@ function App() {
           </>
         )}
 
-        {state.value === "password" && (
+        {currentState.value === "password" && (
           <>
             <InputWithButton
               inputId="password"
@@ -92,13 +101,13 @@ function App() {
             />
           </>
         )}
-        {state.value === "register" && (
+        {currentState.value === "register" && (
           <>
             <p>create a register form...</p>
             <button onClick={registerHandler}>Submit</button>
           </>
         )}
-        {state.value === "loggedIn" && <h1>You're logged in</h1>}
+        {currentState.value === "loggedIn" && <h1>You're logged in</h1>}
       </LoginContainer>
     </>
   );
@@ -119,7 +128,7 @@ const LoginContainer = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 50%;
+  width: 40%;
   background-color: ${({ theme }) => theme.colors.light};
   padding: 5em;
   border-radius: 10px;

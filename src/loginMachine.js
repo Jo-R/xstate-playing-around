@@ -1,7 +1,7 @@
 import { Machine } from "xstate";
 
 // visualise it: https://xstate.js.org/viz/
-export const stateMachine = Machine({
+export const loginMachine = Machine({
   id: "login",
   initial: "awaiting",
   states: {
@@ -12,9 +12,15 @@ export const stateMachine = Machine({
       on: {
         EMAILFOUND: "password",
         EMAILNOTFOUND: "register",
-        PASSWORDFOUND: "loggedIn",
+        PASSWORDFOUND: {
+          target: "loggedIn",
+          actions: "loggedInAction"
+        },
         PASSWORDNOTFOUND: "password",
-        REGISTERED: "loggedIn",
+        REGISTERED: {
+          target: "loggedIn",
+          actions: "loggedInAction"
+        }
       },
     },
     password: {
@@ -25,4 +31,18 @@ export const stateMachine = Machine({
     },
     loggedIn: { type: "final" },
   },
+  context: {
+    isLoggedIn: false
+  }
 });
+
+// note can create bits of machine as consts then within the main machin
+// ... spread them 
+// e.g const thisState = {initial...}
+// Machine({
+//   states: {
+//     name: {
+//       ...this state
+//     }
+//   }
+// })
