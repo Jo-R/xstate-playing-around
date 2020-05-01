@@ -12,6 +12,9 @@ export const InputWithButton = (props) => {
         labelText={props.inputLabel}
         onChange={props.inputOnChangeHandler}
       />
+      {
+        props.errorMessage &&  <ErrorText>{props.errorMessage}</ErrorText>
+      }
       <StyledButton
         onClickHandler={props.buttonOnClickHandler}
         buttonText={props.buttonText}
@@ -23,6 +26,10 @@ export const InputWithButton = (props) => {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+`;
+
+const ErrorText = styled.p`
+  color: red;
 `;
 
 const StyledButton = styled(Button)`

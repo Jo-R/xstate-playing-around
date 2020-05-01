@@ -4,8 +4,11 @@ import { assign } from "xstate";
 export const initLoginMachineOptions = () => (
   {
     actions: {
-      loggedInAction: assign((_, event) => ({
-        isLoggedIn: true
+      showErrorMessage: assign((_, event) => ({
+        errorMessage: event.value
+      })),
+      clearErrorMessage: assign((_, event) =>({
+        errorMessage: ""
       }))
     }
   }

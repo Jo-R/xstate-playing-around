@@ -12,19 +12,21 @@ export const loginMachine = Machine({
       on: {
         EMAILFOUND: "password",
         EMAILNOTFOUND: "register",
-        PASSWORDFOUND: {
-          target: "loggedIn",
-          actions: "loggedInAction"
+        PASSWORDFOUND: "loggedIn",
+        PASSWORDNOTFOUND: {
+          target: "password",
+          actions: "showErrorMessage"
         },
-        PASSWORDNOTFOUND: "password",
-        REGISTERED: {
-          target: "loggedIn",
-          actions: "loggedInAction"
-        }
+        REGISTERED: "loggedIn",
       },
     },
     password: {
-      on: { CHECKPASSWORD: "loading" },
+      on: { 
+        CHECKPASSWORD: {
+          target: "loading",
+          actions: "clearErrorMessage" // clear any previous error
+          }
+      }
     },
     register: {
       on: { SUBMITREG: "loading" },
@@ -32,7 +34,7 @@ export const loginMachine = Machine({
     loggedIn: { type: "final" },
   },
   context: {
-    isLoggedIn: false
+    errorMessage: ""
   }
 });
 

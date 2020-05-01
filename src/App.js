@@ -5,14 +5,15 @@ import { userData } from "./dummyUserData";
 import styled from "styled-components";
 
 // TODO
-// - input field style
 // - pull stuff out to components
 // - add proptypes
 // - build the reg form component (molecule)
-// - fail message if password fails
 // - loading spinner component
 // - local storage for user deets
 // then actually do some more stuff with x-state which is the whole point of this!
+// manage focus
+// guards?
+// also this is useful https://codesandbox.io/s/l3r07jkxx9?file=/src/machineConfig.js
 
 function App() {
   const {currentState, 
@@ -24,8 +25,6 @@ function App() {
     passwordNotFound,
     sendSubmitReg,
     registerdOk} = useContext(LoginContext);
-
-  console.log(currentState.context.isLoggedIn);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -68,7 +67,7 @@ function App() {
       registerdOk();
     }, 1000);
   };
-
+  
   return (
     <>
       <CenteredHeader>
@@ -80,7 +79,7 @@ function App() {
           <>
             <InputWithButton
               inputId="email"
-              type="email"
+              inputType="email"
               inputLabel="Enter your email: "
               inputOnChangeHandler={handleEmailInputChange}
               buttonOnClickHandler={findEmailHandler}
@@ -93,11 +92,12 @@ function App() {
           <>
             <InputWithButton
               inputId="password"
-              type="password"
+              inputType="password"
               inputLabel="Enter password: "
               inputOnChangeHandler={handlePasswordInputChange}
               buttonOnClickHandler={checkPasswordHandler}
               buttonText={"Enter"}
+              errorMessage={currentState.context.errorMessage && currentState.context.errorMessage}
             />
           </>
         )}

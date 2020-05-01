@@ -3,8 +3,6 @@ import {useMachine} from "@xstate/react"
 import {loginMachine} from "./loginMachine";
 import {initLoginMachineOptions} from "./initLoginMachineOptions";
 
-//ContextProps are currentState (machine state) and a isLoggedIn false until logged in
-
 export const LoginContext = createContext();
 
 export const LoginProvider = ({children}) => {
@@ -32,7 +30,7 @@ export const LoginProvider = ({children}) => {
   }
 
   const passwordNotFound = () => {
-    send("PASSWORDNOTFOUND");
+    send("PASSWORDNOTFOUND", {value: "Password not found, try again"});
   }
 
   const sendSubmitReg = () => {
