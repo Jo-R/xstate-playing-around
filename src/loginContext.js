@@ -9,6 +9,8 @@ export const LoginProvider = ({children}) => {
   const machineOptions = initLoginMachineOptions();
   const [currentState, send] = useMachine(loginMachine, machineOptions);
 
+  // alternatively could define these somwhere and export/import them
+  // TODO pros and cons of using context for this stuff
   const checkEmail = () => {
     send("CHECKEMAIL");
   };

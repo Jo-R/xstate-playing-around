@@ -3,14 +3,13 @@ import { InputWithButton } from "./components/molecules/InputWithButton";
 import {LoginContext} from "./loginContext";
 import { userData } from "./dummyUserData";
 import styled from "styled-components";
+import { LoadingSpinner } from "./components/atoms/LoadingSpinner";
 
 // TODO
 // - pull stuff out to components
 // - add proptypes
 // - build the reg form component (molecule)
-// - loading spinner component
 // - local storage for user deets
-// then actually do some more stuff with x-state which is the whole point of this!
 // manage focus
 // guards?
 // also this is useful https://codesandbox.io/s/l3r07jkxx9?file=/src/machineConfig.js
@@ -74,7 +73,7 @@ function App() {
         <h1>Logging in with x-state</h1>
       </CenteredHeader>
       <LoginContainer>
-        {currentState.value === "loading" && <p>Loading...</p>}
+        {currentState.value === "loading" && <LoadingSpinner />}
         {currentState.value === "awaiting" && (
           <>
             <InputWithButton

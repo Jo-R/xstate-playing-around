@@ -1,1 +1,1 @@
-A project to have a go with xstate.
+A mini login flow project to try x-state out
