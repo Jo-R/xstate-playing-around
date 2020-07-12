@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { InputWithButton } from "./components/molecules/InputWithButton";
-import {LoginContext} from "./loginContext";
+import { LoginContext } from "./loginContext";
 import { userData } from "./dummyUserData";
 import styled from "styled-components";
 import { LoadingSpinner } from "./components/atoms/LoadingSpinner";
@@ -17,15 +17,17 @@ import { LoadingSpinner } from "./components/atoms/LoadingSpinner";
 // tests
 
 function App() {
-  const {currentState, 
-    checkEmail, 
-    emailFound, 
+  const {
+    currentState,
+    checkEmail,
+    emailFound,
     emailNotFound,
     sendCheckPassword,
     passwordFound,
     passwordNotFound,
     sendSubmitReg,
-    registerdOk} = useContext(LoginContext);
+    registerdOk,
+  } = useContext(LoginContext);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -35,7 +37,7 @@ function App() {
     setEmail(em);
   };
 
-  const findEmailHandler = () => { // TODO create like an auth hook or something and move the email password checks to there
+  const findEmailHandler = () => {
     checkEmail();
     setTimeout(() => {
       if (email === userData.users.email) {
@@ -68,7 +70,7 @@ function App() {
       registerdOk();
     }, 1000);
   };
-  
+
   return (
     <>
       <CenteredHeader>
@@ -85,6 +87,7 @@ function App() {
               inputOnChangeHandler={handleEmailInputChange}
               buttonOnClickHandler={findEmailHandler}
               buttonText={"Go"}
+              value={email}
             />
           </>
         )}
@@ -95,10 +98,14 @@ function App() {
               inputId="password"
               inputType="password"
               inputLabel="Enter password: "
+              value={password}
               inputOnChangeHandler={handlePasswordInputChange}
               buttonOnClickHandler={checkPasswordHandler}
               buttonText={"Enter"}
-              errorMessage={currentState.context.errorMessage && currentState.context.errorMessage}
+              errorMessage={
+                currentState.context.errorMessage &&
+                currentState.context.errorMessage
+              }
             />
           </>
         )}
