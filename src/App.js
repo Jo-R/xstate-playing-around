@@ -5,17 +5,6 @@ import { userData } from "./dummyUserData";
 import styled from "styled-components";
 import { LoadingSpinner } from "./components/atoms/LoadingSpinner";
 
-// TODO
-// - pull stuff out to components/better organisation
-// - add proptypes
-// - build the reg form component (molecule)
-// - local storage for user deets
-// manage focus
-// guards? and other x-state stuff! the machine feels a bit wrong maybe...like better way of dealing
-// with the errors and stuff
-// also this is useful https://codesandbox.io/s/l3r07jkxx9?file=/src/machineConfig.js
-// tests
-
 function App() {
   const {
     currentState,
